@@ -87,6 +87,10 @@ Download beberapa stuff diluar Github
 ``` bash
 rsynch -a --numeric-ids --relative /run/media/tenka/Techbyte/FILE-IRWAN/Lokasi_Backup/ /home/tenka/
 ```
+**Restore backup dari GitHub**
+``` bash
+git clone git@github.com:tenkaasikinn/mydotfiles.git
+```
 
 ## Setup Browser
 
