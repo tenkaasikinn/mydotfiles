@@ -1,55 +1,68 @@
-# ===== Basic zsh setup =====
-
-# Fastfetch
-
-if [[ -o interactive ]] && [[ -z "$SSH_CONNECTION" ]]; then
-	fastfetch
+# ===============================
+# Nix (load early for PATH)
+# ===============================
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 fi
 
+# ===============================
+# Interactive only
+# ===============================
+[[ -o interactive ]] || return
+
+# ===============================
+# Fastfetch (local only)
+# ===============================
+if [[ -z "$SSH_CONNECTION" ]]; then
+  fastfetch
+fi
+
+# ===============================
 # History
+# ===============================
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-setopt appendhistory
-setopt sharehistory
-setopt inc_append_history 
-setopt hist_ignore_dups
-setopt hist_reduce_blanks
+setopt appendhistory sharehistory inc_append_history
+setopt hist_ignore_dups hist_reduce_blanks
 
+# ===============================
 # Completion
+# ===============================
 autoload -Uz compinit
-compinit
-
-# Better completion menu
+compinit -C
 zstyle ':completion:*' menu select
 
-# ===== Autosuggestions (fish-like) =====
+# ===============================
+# Plugins
+# ===============================
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# ===== Syntax highlighting =====
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# ===== Oh My Posh =====
+# ===============================
+# Prompt
+# ===============================
 eval "$(oh-my-posh init zsh --config ~/jandedobbeleer.omp.json)"
 
-# ====== Zoxide ========
+# ===============================
+# Tools
+# ===============================
 eval "$(zoxide init zsh)"
-
-# ====== fzf key-binding ======
 source /usr/share/fzf/shell/key-bindings.zsh
 
-# ===== alias ========
+# ===============================
+# Aliases
+# ===============================
 alias suhu='sensors'
-alias lz='ls -lahZ'
 alias cat='bat'
 alias vi='nvim'
 alias cl='clear'
+
 alias ls='eza --icons --group-directories-first'
 alias ll='eza -lah --git'
 alias tree='eza --tree'
-alias cd='z'
+
+alias cd='z'        # opinionated, personal
 alias suspend='sudo systemctl suspend'
 alias reboot='sudo reboot now'
 
-# ======== nix =========
-if [ -e /home/tenka/.nix-profile/etc/profile.d/nix.sh ]; then . /home/tenka/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
