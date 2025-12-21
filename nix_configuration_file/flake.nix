@@ -20,7 +20,7 @@
         ({ pkgs, ... }: {
           home.username = "tenka";
           home.homeDirectory = "/home/tenka";
-          home.stateVersion = "24.11";
+          home.stateVersion = "25.11";
 
           programs.home-manager.enable = true;
           # === PAKET USER ===
@@ -35,6 +35,7 @@
               fastfetch
               ranger
               yazi
+              speedtest-cli
             ];
 
             # === FZF ===
