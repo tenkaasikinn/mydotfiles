@@ -33,7 +33,6 @@
               zoxide
               htop
               fastfetch
-              ranger
               yazi
               speedtest-cli
             ];
