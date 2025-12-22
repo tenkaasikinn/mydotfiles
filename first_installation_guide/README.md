@@ -1,6 +1,8 @@
-# GUIDE TO MY FIRST INSTALLATION
+# PETUNJUK PENGGUNAAN
 
-## Setelah Install dan Repo
+> *This script was writed in Bahasa Indonesia, if you're coming from International please read the [README.md](README.md)* 
+
+## 1. Setelah Install dan Repo
 **Update menggunakan** 
 ``` bash
 sudo dnf upgrade --refresh -y
@@ -18,53 +20,7 @@ sudo dnf install \
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 ```
 
-## Atur DNS 
-**Ubah `resolved` dengan cara** 
-``` bash
-sudo nano /etc/systemd/resolved.conf 
-```
-
-**dan diisi**
-
-``` conf
-[Resolve]
-DNS=1.1.1.1 9.9.9.9
-DNSOverTLS=yes
-DNSSEC=no
-``` 
-l**alu atur dengan**
-
-``` bash
-sudo systemctl enable --now systemd-resolved
-```
-
-## Atur Firewall
-**Atur firewall dengan konfigurasi seperti ini:**
-``` bash
-sudo firewall-cmd --runtime-to-permanent
-sudo firewall-cmd --add-rich-rule='rule family=ipv4 port port="53" protocol="udp" drop'
-sudo firewall-cmd --add-rich-rule='rule family=ipv4 port port="53" protocol="tcp" drop'
-sudo firewall-cmd --remove-port=8080/tcp --permanent
-sudo firewall-cmd --remove-port=8081-65535/tcp --permanent
-sudo firewall-cmd --remove-port=1025-8079/tcp --permanent
-sudo firewall-cmd --remove-port=1025-65535/udp --permanent
-sudo firewall-cmd --add-port=1714-1764/tcp --permanent 
-sudo firewall-cmd --add-port=1714-1764/udp --permanent 
-sudo firewall-cmd --reload
-```
-
-## Install Aplikasi
-
-**Dengan `dnf`**
-``` bash
-sudo dnf install zsh vim neovim vlc mpv alacritty
-```
-**Dengan `flatpak`**
-``` bash
-flatpak install flathub app.zen_browser.zen com.brave.Browser com.mattjakeman.ExtensionManager com.vscodium.codium md.obsidian.Obsidian org.ferdium.Ferdium org.onlyoffice.desktopeditors
-```
-
-## Restore Backup 
+## 2. Restore Backup 
 
 **Restore backup dari SSD**
 ``` bash
@@ -74,14 +30,40 @@ rsynch -a --numeric-ids --relative /run/media/tenka/Techbyte/FILE-IRWAN/Lokasi_B
 ``` bash
 git clone git@github.com:tenkaasikinn/mydotfiles.git
 ```
-## Konfigurasi `Nix`
 
-Buka Repo ***mydotfiles*** yang udah di clone **nix_configuration_file** dan temukan `flake.nix`
-kemudian jalankan perintah ini 
+## 3. Atur DNS dan Firewall
+**Ubah `resolved` dengan cara** 
+Masuk ke Repo ***mydotfiles*** yang udah di clone dengan menggunakan perintah ini:
+``` bash
+cd ~/mydotfiles/config_dns_&_firewall
+```
+lalu jalankan perintah ini
+``` bash
+sudo ./dns-config.sh
+```
+
+**Atur firewall**
+Masih di directory ***mydotfiles/config_dns_&_firewall*** jalankan perintah ini:
+``` bash
+sudo ./firewall-config.sh
+```
+
+## 4. Install Aplikasi yang diperlukan
+
+Masuk ke Repo ***mydotfiles*** yang udah di clone dengan menggunakan perintah ini
+``` bash
+cd ~/mydotfiles/install_aplikasi
+```
+cek dulu isinya pakai `nano` atau `vim` lalu jalankan
+``` bash
+sudo ./install-aplikasi.sh
+```
+
+## 5. Konfigurasi `Nix`
+
+Masuk ke Repo ***mydotfiles*** yang udah di clone dengan menggunakan perintah ini 
 ```zsh
-mkdir -p ~/.config/home-manager
-cp flake.nix ~/.config/home-manager
-cd ~/.config/home-manager
+cd ~/mydotfiles/nix_configuration_files
 ```
 cek dulu isinya pakai `nano` atau `vim` lalu jalankan 
 
@@ -93,23 +75,31 @@ nix run home-manager/master -- switch --flake .#tenka
 gunakan
 ```zsh
 nix flake update
+nix run home-manager/master -- switch --flake .#tenka
 ```
 ingat di lokasi flake.nix berada
 
-## Ricing
+## 6. Ricing
 
 **Ubah shell dari** `bash` ke `zsh`
 
 ``` bash
 chsh -s /bin/zsh 
 ```
+masuk ke repo ***mydotfiles*** dan copy beberapa file berikut
+- **zsh/.zshrc** ke home
+- **oh-my-posh/jandedobbeleer.omp.json** ke home **Install oh my posh terlebih dahulu sebelum ricing**
+- **alacritty/`*`** ke home bagian *.config* kalau belum ada folder alacritty tolong buat dulu
+- **fastfetch/`*`** ke home bagian *.config* kalau belum ada folder fastfetch tolong buat dulu
 
 Download beberapa stuff diluar Github
 - [Oh My Posh](https://ohmyposh.dev/)
 - [Lazyvim](https://www.lazyvim.org/)
+- [Tela Circle Icon](https://www.gnome-look.org/p/1359276)
+- [Bibata Ice Cursor](https://www.gnome-look.org/p/1197198)
 
 
-## Setup Browser
+## 7. Setup Browser
 
 ### List Browser
 1. **Zen Browser Browser** browser default
