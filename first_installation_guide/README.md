@@ -15,9 +15,10 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 ```
-**Pasang `Nix`**
+**Pasang `Nix` dan aktifkan flake**
 ``` bash
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
+export NIX_CONFIG="experimental-features = nix-command flakes"
 ```
 
 ## 2. Restore Backup 
