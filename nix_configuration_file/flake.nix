@@ -35,6 +35,9 @@
               fastfetch
               yazi
               speedtest-cli
+              tldr
+              duf
+              dust
             ];
 
             # === FZF ===
