@@ -41,7 +41,7 @@
               lazygit
               bottom
               procs
-	      neovim
+	            neovim
             ];
 
             # === FZF ===
