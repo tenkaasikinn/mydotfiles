@@ -42,6 +42,8 @@
               bottom
               procs
 	            neovim
+              bluetui
+              impala
             ];
 
             # === FZF ===
