@@ -45,6 +45,7 @@
               bluetui
               cowsay
               figlet
+              cava
             ];
 
             # === FZF ===
